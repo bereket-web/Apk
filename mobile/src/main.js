@@ -1,0 +1,5 @@
+import "./style.css";
+const API=localStorage.getItem("api")||"http://10.0.2.2:8000";
+document.querySelector("#app").innerHTML=`<main><h1>ForexSense AI <span>v2</span></h1><p>Research & paper-trading dashboard</p><section><h2>Prediction API</h2><input id="api" value="${API}"><button id="save">Save API URL</button></section><section><h2>Model Status</h2><button id="health">Check backend</button><pre id="out">Not connected</pre></section><section><h2>Safety</h2><p>Paper trading only. This app does not contain broker order execution.</p></section></main>`;
+save.onclick=()=>{localStorage.setItem("api",api.value);location.reload()};
+health.onclick=async()=>{try{out.textContent=JSON.stringify(await (await fetch((localStorage.getItem("api")||API)+"/health")).json(),null,2)}catch(e){out.textContent="Backend unavailable: "+e.message}};
